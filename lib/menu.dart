@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final String npm = "2406000001";
-  final String nama = "Burhan";
+  final String npm = "2506624940";
+  final String nama = "Fadly Atief Nauval";
   final String kelas = "PBP A";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Proyek", Icons.folder),
-    ItemHomepage("Tambah Proyek", Icons.add_circle),
-    ItemHomepage("Logout", Icons.logout),
+    ItemHomepage("Lihat Proyek", Icons.folder, Colors.pink[700]),
+    ItemHomepage("Tambah Proyek", Icons.add_circle, const Color.fromARGB(255, 24, 174, 194)),
+    ItemHomepage("Lihat Experience", Icons.business_center_outlined, const Color.fromARGB(255, 24, 194, 84)),
+    ItemHomepage("Tambah Experience", Icons.add, const Color.fromARGB(255, 163, 194, 24)),
+    ItemHomepage("Logout", Icons.logout, const Color.fromARGB(255, 50, 24, 194)),
   ];
 
   @override
@@ -105,6 +107,9 @@ class InfoCard extends StatelessWidget {
           children: [
             Text(
               title,
+
+
+              
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
@@ -119,8 +124,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color? color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -132,7 +138,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       // Menggunakan warna sekunder dari skema tema aplikasi.
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         // Aksi ketika kartu ditekan oleh pengguna.
