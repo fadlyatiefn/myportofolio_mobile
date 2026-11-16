@@ -19,18 +19,28 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Scaffold menyediakan struktur visual dasar halaman (AppBar, Body, SnackBar).
     return Scaffold(
-      // AppBar menampilkan bar bagian atas halaman aplikasi.
-      appBar: AppBar(
-        title: const Text(
-          'MyPortfolio',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight + 30),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15, bottom: 15),
+          child: FractionallySizedBox(
+            widthFactor: 0.9,
+            child: AppBar(
+              primary: false,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kToolbarHeight * 0.5),
+              ),
+              title: const Text(
+                'MyPortfolio',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      // Body halaman utama dengan padding di sekelilingnya.
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
