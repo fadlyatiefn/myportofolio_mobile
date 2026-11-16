@@ -3,32 +3,44 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final String npm = "2406000001";
-  final String nama = "Burhan";
+  final String npm = "2506624940";
+  final String nama = "Fadly Atief Nauval";
   final String kelas = "PBP A";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("Lihat Proyek", Icons.folder),
-    ItemHomepage("Tambah Proyek", Icons.add_circle),
-    ItemHomepage("Logout", Icons.logout),
+    ItemHomepage("Lihat Proyek", Icons.folder, Colors.pink[700]),
+    ItemHomepage("Tambah Proyek", Icons.add_circle, const Color.fromARGB(255, 24, 174, 194)),
+    ItemHomepage("Lihat Experience", Icons.business_center_outlined, const Color.fromARGB(255, 24, 194, 84)),
+    ItemHomepage("Tambah Experience", Icons.add, const Color.fromARGB(255, 163, 194, 24)),
+    ItemHomepage("Logout", Icons.logout, const Color.fromARGB(255, 50, 24, 194)),
   ];
 
   @override
   Widget build(BuildContext context) {
     // Scaffold menyediakan struktur visual dasar halaman (AppBar, Body, SnackBar).
     return Scaffold(
-      // AppBar menampilkan bar bagian atas halaman aplikasi.
-      appBar: AppBar(
-        title: const Text(
-          'MyPortfolio',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
+      appBar: PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight + 30),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15, bottom: 15),
+          child: FractionallySizedBox(
+            widthFactor: 0.9,
+            child: AppBar(
+              primary: false,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kToolbarHeight * 0.5),
+              ),
+              title: const Text(
+                'MyPortfolio',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
       ),
-      // Body halaman utama dengan padding di sekelilingnya.
+    ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -105,6 +117,9 @@ class InfoCard extends StatelessWidget {
           children: [
             Text(
               title,
+
+
+              
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
@@ -119,8 +134,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color? color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -132,7 +148,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       // Menggunakan warna sekunder dari skema tema aplikasi.
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         // Aksi ketika kartu ditekan oleh pengguna.
