@@ -126,42 +126,49 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               // === Tanggal Mulai ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: DateTimeFormField(
-                  decoration: date_material.InputDecoration(
-                    hintText: "Pilih tanggal mulai",
-                    labelText: "Tanggal Mulai",
-                    border: date_material.OutlineInputBorder(
-                      borderRadius: date_material.BorderRadius.circular(5.0),
+                child: date_material.Material(
+                  child: DateTimeFormField(
+                    decoration: date_material.InputDecoration(
+                      hintText: "Pilih tanggal mulai",
+                      labelText: "Tanggal Mulai",
+                      border: date_material.OutlineInputBorder(
+                        borderRadius:
+                            date_material.BorderRadius.circular(5.0),
+                      ),
                     ),
+                    mode: DateTimeFieldPickerMode.date,
+                    validator: (DateTime? value) => value == null
+                        ? "Tanggal mulai tidak boleh kosong!"
+                        : null,
+                    onChanged: (DateTime? value) {
+                      setState(() {
+                        _startedAt = value;
+                      });
+                    },
                   ),
-                  mode: DateTimeFieldPickerMode.date,
-                  validator: (DateTime? value) =>
-                      value == null ? "Tanggal mulai tidak boleh kosong!" : null,
-                  onChanged: (DateTime? value) {
-                    setState(() {
-                      _startedAt = value;
-                    });
-                  },
                 ),
               ),
 
               // === Tanggal Selesai (opsional) ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: DateTimeFormField(
-                  decoration: date_material.InputDecoration(
-                    hintText: "Pilih tanggal selesai (opsional)",
-                    labelText: "Tanggal Selesai",
-                    border: date_material.OutlineInputBorder(
-                      borderRadius: date_material.BorderRadius.circular(5.0),
+                child: date_material.Material(
+                  child: DateTimeFormField(
+                    decoration: date_material.InputDecoration(
+                      hintText: "Pilih tanggal selesai (opsional)",
+                      labelText: "Tanggal Selesai",
+                      border: date_material.OutlineInputBorder(
+                        borderRadius:
+                            date_material.BorderRadius.circular(5.0),
+                      ),
                     ),
+                    mode: DateTimeFieldPickerMode.date,
+                    onChanged: (DateTime? value) {
+                      setState(() {
+                        _endedAt = value;
+                      });
+                    },
                   ),
-                  mode: DateTimeFieldPickerMode.date,
-                  onChanged: (DateTime? value) {
-                    setState(() {
-                      _endedAt = value;
-                    });
-                  },
                 ),
               ),
 
