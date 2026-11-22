@@ -129,3 +129,59 @@ AI hanya bisa berjalan dengan baik dan sesuai kemauan saya ketika saya memberika
 
 #### Perbaikan Manual
 Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga web aku dapat berjalan sesuai dengan ketentuan.
+
+## Tugas 8
+
+### ❓ Pertanyaan
+
+## 1. Jelaskan perbedaan antara `Navigator.push()`, `Navigator.pushReplacement()`, dan `Navigator.pop()`! Metode apa yang digunakan untuk membuka formulir dari kartu aksi? Jelaskan juga bagaimana opsi **Home** di drawer membawa pengguna kembali ke halaman utama.
+
+**Perbedaannya:**
+- `Navigator.push()` menambahkan halaman baru di atas halaman saat ini. Pengguna bisa kembali ke halaman sebelumnya dengan tombol Back atau `Navigator.pop()`.
+- `Navigator.pushReplacement()` mengganti halaman saat ini dengan halaman baru. Halaman yang diganti tidak lagi berada di tumpukan navigasi.
+- `Navigator.pop()` menutup halaman yang sedang terbuka dan kembali ke halaman sebelumnya di tumpukan navigasi.
+
+Di `ItemCard`, kartu **Tambah Proyek** dan **Tambah Experience** menggunakan `Navigator.push()` untuk membuka formulir masing-masing. Halaman utama tetap berada di bawah formulir, sehingga pengguna bisa kembali ke sana.
+
+Opsi **Home** di `LeftDrawer` menggunakan `Navigator.pushReplacement()` untuk membuka `MyHomePage` dan mengganti halaman saat ini. Dengan begitu, pengguna kembali ke halaman utama tanpa menyimpan halaman sebelumnya sebagai halaman aktif di tumpukan navigasi.
+
+## 2. Bagaimana susunan `Scaffold`, `AppBar`, dan `Drawer` membantu menjaga struktur halaman tetap konsisten? Berikan satu contoh penggunaan warna tema portofolio di lebih dari satu halaman.
+
+`Scaffold` menyediakan kerangka dasar halaman, seperti area `appBar`, `body`, dan `drawer`. `AppBar` menampilkan judul serta menyediakan area navigasi di bagian atas, sedangkan `Drawer` menyediakan menu untuk berpindah halaman. Susunan ini membuat fungsi dan struktur halaman lebih mudah dikenali pengguna.
+
+Contoh warna yang digunakan berulang adalah indigo. Halaman utama mengambil warna utama dari `Theme.of(context).colorScheme.primary` untuk `AppBar`, yang berasal dari tema aplikasi dengan `seedColor: Colors.indigo`. Pada formulir proyek dan pengalaman, `AppBar` serta tombol **Save** juga menggunakan `Colors.indigo`.
+
+## 3. Mengapa tata letak tersebut dipilih untuk formulir? Jelaskan peran widget pengatur jarak dan widget penggulir ketika ruang layar terbatas.
+
+Formulir disusun dengan `Column` karena kolom input dan tombol disajikan secara berurutan dari atas ke bawah. Setiap kolom input dibungkus `Padding` agar memiliki jarak dari elemen lain dan tidak terlihat terlalu rapat.
+
+`SingleChildScrollView` membungkus isi formulir supaya pengguna dapat menggulir ke bagian bawah ketika seluruh kolom dan tombol tidak muat di layar. Ini berguna pada layar yang pendek atau saat papan ketik sedang terbuka.
+
+## 4. Apa peran `GlobalKey<FormState>`, `validator`, dan `validate()` saat tombol **Simpan** ditekan? Berikan satu contoh nilai yang ditolak oleh validasi dan jelaskan mengapa memilih jenis input atau papan ketik saja belum cukup.
+
+`GlobalKey<FormState>` menghubungkan `Form` dengan kode yang perlu memeriksa atau mengatur statusnya. Pada tombol **Save**, `_formKey.currentState!.validate()` menjalankan `validator` pada field yang memiliki validasi.
+
+`validator` memeriksa nilai sebuah field dan mengembalikan pesan jika nilainya tidak memenuhi aturan. Contohnya, nama proyek yang hanya berisi spasi ditolak karena validator memeriksa apakah `value.trim().isEmpty`. Jika semua field yang divalidasi lolos, `validate()` menghasilkan `true` dan dialog keberhasilan ditampilkan.
+
+Memilih jenis input atau papan ketik hanya membantu pengguna memasukkan nilai dalam format tertentu. Itu tidak menjamin nilainya valid, karena pengguna masih bisa menempelkan teks atau mengosongkan field. Karena itu, pemeriksaan tetap perlu dilakukan dengan `validator` saat formulir dikirim.
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+- 22 November 2026:
+    1. Membuat halaman form experience
+    2. Menambah routing di menu untuk ke halaman form experience
+    3. Menambah isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Claude** : Untuk membantu dalam pengisian README.md dan fix error saat menambahkan DateTimeField
+    
+#### Keterbatasan AI
+
+AI hanya bisa berjalan dengan baik dan sesuai kemauan saya ketika saya memberikan referensi yang banyak. Yang mana dalam mencari referensi, tentunya kita harus memahami apa yg dimau kita secara detail, Oleh karena itu, saya juga perlu memahami secara mendalam mengenai tugas ini
+
+
+#### Perbaikan Manual
+Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga app aku dapat berjalan sesuai dengan ketentuan.
