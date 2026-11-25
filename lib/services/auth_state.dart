@@ -23,7 +23,6 @@ class AuthState extends ChangeNotifier {
     try {
       await _apiClient.logout(token: current);
     } on ApiException {
-
     } finally {
       _token = null;
       notifyListeners();

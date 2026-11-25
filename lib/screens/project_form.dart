@@ -22,7 +22,9 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
   bool _isSubmitting = false;
 
   String? _required(String? value, String label) =>
-      value == null || value.trim().isEmpty ? '$label tidak boleh kosong.' : null;
+      value == null || value.trim().isEmpty
+      ? '$label tidak boleh kosong.'
+      : null;
 
   String? _validateUrl(String? value, {bool optional = false}) {
     final input = value?.trim() ?? '';
@@ -49,7 +51,9 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
       projectDesc: _description.trim(),
       techStack: _techStack.trim(),
       projectLink: _projectUrl.trim(),
-      thumbnail: _projectImageUrl.trim().isEmpty ? null : _projectImageUrl.trim(),
+      thumbnail: _projectImageUrl.trim().isEmpty
+          ? null
+          : _projectImageUrl.trim(),
     );
 
     setState(() => _isSubmitting = true);
@@ -76,7 +80,9 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
         await context.read<AuthState>().logout();
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Sesi berakhir. Silakan login kembali.')),
+          const SnackBar(
+            content: Text('Sesi berakhir. Silakan login kembali.'),
+          ),
         );
         await ensureLoggedIn(context);
       } else {
@@ -123,27 +129,33 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
         child: Column(
           children: [
             _textField(
-              label: 'Title', hint: 'Project title',
+              label: 'Title',
+              hint: 'Project title',
               onChanged: (value) => _title = value,
               validator: (value) => _required(value, 'Title'),
             ),
             _textField(
-              label: 'Description', hint: 'Describe the project', maxLines: 5,
+              label: 'Description',
+              hint: 'Describe the project',
+              maxLines: 5,
               onChanged: (value) => _description = value,
               validator: (value) => _required(value, 'Description'),
             ),
             _textField(
-              label: 'Tech Stack', hint: 'Flutter, Django, ...',
+              label: 'Tech Stack',
+              hint: 'Flutter, Django, ...',
               onChanged: (value) => _techStack = value,
               validator: (value) => _required(value, 'Tech Stack'),
             ),
             _textField(
-              label: 'Project URL', hint: 'https://example.com',
+              label: 'Project URL',
+              hint: 'https://example.com',
               onChanged: (value) => _projectUrl = value,
               validator: _validateUrl,
             ),
             _textField(
-              label: 'Project Image URL (Optional)', hint: 'https://example.com/image.png',
+              label: 'Project Image URL (Optional)',
+              hint: 'https://example.com/image.png',
               onChanged: (value) => _projectImageUrl = value,
               validator: (value) => _validateUrl(value, optional: true),
             ),
@@ -152,7 +164,11 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
               child: ElevatedButton(
                 onPressed: _isSubmitting ? null : _submit,
                 child: _isSubmitting
-                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
                     : const Text('Save'),
               ),
             ),

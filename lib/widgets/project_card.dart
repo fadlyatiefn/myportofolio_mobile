@@ -25,9 +25,9 @@ class ItemCard extends StatelessWidget {
             if (context.read<AuthState>().isLoggedIn) {
               await context.read<AuthState>().logout();
               if (!context.mounted) return;
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Logout berhasil.')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Logout berhasil.')));
             } else {
               await ensureLoggedIn(context);
             }
@@ -35,16 +35,33 @@ class ItemCard extends StatelessWidget {
           }
 
           if (item.name == 'Tambah Proyek') {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProjectFormPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
+            );
           } else if (item.name == 'Tambah Experience') {
             if (!await ensureLoggedIn(context) || !context.mounted) return;
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ExperienceFormPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ExperienceFormPage(),
+              ),
+            );
           } else if (item.name == 'Lihat Proyek') {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const ProjectListScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProjectListScreen(),
+              ),
+            );
           } else {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(content: Text('Kamu telah menekan tombol ${item.name}!')));
+              ..showSnackBar(
+                SnackBar(
+                  content: Text('Kamu telah menekan tombol ${item.name}!'),
+                ),
+              );
           }
         },
         child: Container(
@@ -53,11 +70,7 @@ class ItemCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
+                Icon(item.icon, color: Colors.white, size: 30.0),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
                   item.name,

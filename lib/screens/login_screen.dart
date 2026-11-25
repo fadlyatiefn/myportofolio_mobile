@@ -31,9 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
     } on ApiException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login failed (HTTP ${e.statusCode})'),
-        ),
+        SnackBar(content: Text('Login failed (HTTP ${e.statusCode})')),
       );
     } finally {
       if (mounted) {
