@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider.value(value: apiClient),
         ChangeNotifierProvider(create: (_) => AuthState(apiClient)),
-        ],
-        child: MaterialApp(
+      ],
+      child: MaterialApp(
         title: 'MyPortfolio',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        localizationsDelegates: date_material.GlobalMaterialLocalizations.delegates,
+        localizationsDelegates:
+            date_material.GlobalMaterialLocalizations.delegates,
         home: MyHomePage(),
-      )
+      ),
     );
   }
 }
-

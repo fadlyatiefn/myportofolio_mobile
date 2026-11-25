@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:material_ui/material_ui.dart' as date_material;
+
 // TODO: Impor drawer yang sudah dibuat sebelumnya
 
 class ExperienceFormPage extends StatefulWidget {
@@ -34,9 +35,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add Experience Form'),
-        ),
+        title: const Center(child: Text('Add Experience Form')),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
@@ -110,10 +109,12 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   ),
                   initialValue: _category,
                   items: _categories
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
                       .toList(),
                   onChanged: (String? newValue) {
                     setState(() {
@@ -132,8 +133,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                       hintText: "Pilih tanggal mulai",
                       labelText: "Tanggal Mulai",
                       border: date_material.OutlineInputBorder(
-                        borderRadius:
-                            date_material.BorderRadius.circular(5.0),
+                        borderRadius: date_material.BorderRadius.circular(5.0),
                       ),
                     ),
                     mode: DateTimeFieldPickerMode.date,
@@ -158,8 +158,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                       hintText: "Pilih tanggal selesai (opsional)",
                       labelText: "Tanggal Selesai",
                       border: date_material.OutlineInputBorder(
-                        borderRadius:
-                            date_material.BorderRadius.circular(5.0),
+                        borderRadius: date_material.BorderRadius.circular(5.0),
                       ),
                     ),
                     mode: DateTimeFieldPickerMode.date,
@@ -206,8 +205,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title:
-                                  const Text('Pengalaman berhasil ditambahkan!'),
+                              title: const Text(
+                                'Pengalaman berhasil ditambahkan!',
+                              ),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,7 +218,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                                     Text('Mulai: ${_fmt(_startedAt)}'),
                                     Text('Selesai: ${_fmt(_endedAt)}'),
                                     Text(
-                                        'Tautan: ${_projectLink.isEmpty ? "-" : _projectLink}'),
+                                      'Tautan: ${_projectLink.isEmpty ? "-" : _projectLink}',
+                                    ),
                                   ],
                                 ),
                               ),

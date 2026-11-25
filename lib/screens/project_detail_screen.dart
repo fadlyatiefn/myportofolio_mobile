@@ -66,10 +66,7 @@ class ProjectDetailScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              project.projectDesc,
-              style: textTheme.bodyLarge,
-            ),
+            Text(project.projectDesc, style: textTheme.bodyLarge),
             const SizedBox(height: 20),
             Text(
               'Project URL',
@@ -90,7 +87,9 @@ class ProjectDetailScreen extends StatelessWidget {
                   icon: const Icon(Icons.copy),
                   tooltip: 'Copy URL',
                   onPressed: () {
-                    Clipboard.setData(ClipboardData(text: project.projectLink ?? ''));
+                    Clipboard.setData(
+                      ClipboardData(text: project.projectLink ?? ''),
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Project URL copied to clipboard'),

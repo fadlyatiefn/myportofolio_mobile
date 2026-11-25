@@ -19,9 +19,7 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.indigo,
-            ),
+            decoration: BoxDecoration(color: Colors.indigo),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -36,10 +34,7 @@ class LeftDrawer extends StatelessWidget {
                 SizedBox(height: 10),
                 Text(
                   'Explore personal projects and experiences!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
+                  style: TextStyle(fontSize: 15, color: Colors.white),
                 ),
               ],
             ),
@@ -50,9 +45,7 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(),
-                ),
+                MaterialPageRoute(builder: (context) => MyHomePage()),
               );
             },
           ),
@@ -60,16 +53,24 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Project'),
             onTap: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProjectFormPage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProjectFormPage(),
+                ),
+              );
             },
           ),
           ListTile(
             leading: const Icon(Icons.work_outline),
             title: const Text('See Project'),
             onTap: () {
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProjectListScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProjectListScreen(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -78,8 +79,12 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               ensureLoggedIn(context).then((loggedIn) {
                 if (loggedIn && context.mounted) {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const ExperienceFormPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ExperienceFormPage(),
+                    ),
+                  );
                 }
               });
             },
@@ -88,8 +93,10 @@ class LeftDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.login),
               title: const Text('Login'),
-              onTap: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginScreen())),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              ),
             )
           else
             ListTile(
