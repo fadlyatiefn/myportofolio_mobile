@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:material_ui/material_ui.dart' as date_material;
+import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:provider/provider.dart';
 import 'package:myportofolio_mobile/services/api_client.dart';
@@ -30,8 +29,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        localizationsDelegates:
-            date_material.GlobalMaterialLocalizations.delegates,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
         home: MyHomePage(),
       ),
     );
