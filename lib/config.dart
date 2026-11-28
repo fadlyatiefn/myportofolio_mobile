@@ -4,5 +4,5 @@
 /// Override with `--dart-define=API_BASE_URL=http://localhost:8000` if you are testing on Chrome/Web browser
 const String apiBaseUrl = String.fromEnvironment(
   'API_BASE_URL',
-  defaultValue: 'http://127.0.0.1:8000/',
+  defaultValue: 'https://fadly-atief-myportofolio.pws.cs.ui.ac.id',
 );
