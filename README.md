@@ -108,7 +108,7 @@ Posisi context ngaruh: context harus ada di bawah widget yang nyediain hal yang 
 Kalau hot reload nggak nunjukin perubahan, naik ke hot restart, kalau masih nggak, full restart.
 
 ### 📶 Progress Mingguan
-**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+**Untuk Full *Commit History*, bisa lihat di branch tugas-7**
 - 9 November 2026:
     1. Menyelesaikan Tutorial 8
     2. Mengganti warna action button
@@ -166,7 +166,7 @@ Formulir disusun dengan `Column` karena kolom input dan tombol disajikan secara 
 Memilih jenis input atau papan ketik hanya membantu pengguna memasukkan nilai dalam format tertentu. Itu tidak menjamin nilainya valid, karena pengguna masih bisa menempelkan teks atau mengosongkan field. Karena itu, pemeriksaan tetap perlu dilakukan dengan `validator` saat formulir dikirim.
 
 ### 📶 Progress Mingguan
-**Untuk Full *Commit History*, bisa lihat di branch tugas-3**
+**Untuk Full *Commit History*, bisa lihat di branch tugas-8**
 - 22 November 2026:
     1. Membuat halaman form experience
     2. Menambah routing di menu untuk ke halaman form experience
@@ -182,6 +182,53 @@ Memilih jenis input atau papan ketik hanya membantu pengguna memasukkan nilai da
 
 AI hanya bisa berjalan dengan baik dan sesuai kemauan saya ketika saya memberikan referensi yang banyak. Yang mana dalam mencari referensi, tentunya kita harus memahami apa yg dimau kita secara detail, Oleh karena itu, saya juga perlu memahami secara mendalam mengenai tugas ini
 
+
+#### Perbaikan Manual
+Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga app aku dapat berjalan sesuai dengan ketentuan.
+
+## Tugas 9
+
+### ❓ Pertanyaan
+
+## 1. Mengapa kita menggunakan `@JsonSerializable(fieldRename: FieldRename.snake)` dan `@JsonKey(includeToJson: false)` alih-alih mengirim objek `Map<String, dynamic>` mentah langsung dari widget? Jelaskan satu bug yang dicegah atau dapat dicegah oleh pendekatan ini pada model bagianmu.
+
+`@JsonSerializable(fieldRename: FieldRename.snake)` membuat konversi JSON dilakukan otomatis dan konsisten, misalnya `projectName` menjadi `project_name`, sesuai format yang dipakai API Django. `@JsonKey(includeToJson: false)` mengecualikan field yang hanya dibaca dari server agar tidak ikut dikirim saat membuat data. Dengan model, widget cukup mengirim objek `Project` atau `Experience` lewat `toJson()`, jadi aturan format dan field API tidak tersebar di banyak widget.
+
+Contohnya, model `Project` menandai `id` dan `starCount` sebagai tidak dikirim. Keduanya berasal dari server. Jika ikut dikirim dengan nilai awal atau nilai lama, payload bisa memuat data yang tidak semestinya diubah saat membuat proyek. Generator juga mencegah bug nama field, seperti mengirim `projectName` padahal API mengharapkan `project_name`.
+
+## 2. Mengapa `Future` yang diteruskan ke `FutureBuilder` harus diinisialisasi di dalam `initState()` alih-alih langsung di dalam `build()`, dan mengapa `ApiClient` sebaiknya melempar `ApiException` daripada mengembalikan `null` pada respons HTTP non-2xx?
+
+`build()` dapat dipanggil berkali-kali, especially setelah perubahan state. Jika request dibuat langsung di sana, setiap build ulang membuat request baru, membuat pemuatan berulang dan hasil yang tidak konsisten. Di halaman daftar proyek dan pengalaman, `initState()` menyimpan satu `Future` untuk dipakai `FutureBuilder` sehingga request baru dibuat lagi hanya ketika pengguna melakukan muat ulang.
+
+Respons HTTP non-2xx adalah kegagalan yang perlu membawa status dan pesan respons. `ApiException` menyimpan informasi itu sehingga UI bisa menampilkan atau menangani error secara jelas. Jika `null` dikembalikan, kegagalan mudah disalahartikan sebagai data kosong dan penyebabnya hilang.
+
+## 3. Bandingkan `SessionAuthentication` milik Django (dari Tutorial 04/07) dengan `TokenAuthentication` milik DRF (dari Tutorial 10). Mengapa `myportfolio_mobile` menggunakan `TokenAuthentication` sementara `SessionAuthentication` tetap diaktifkan pada backend Django?
+
+`SessionAuthentication` mengandalkan sesi yang disimpan di server dan cookie yang dikirim browser. Ini cocok untuk akses melalui Django atau browser yang memakai sesi login. `TokenAuthentication` memakai token yang dikirim klien pada header `Authorization`, sehingga lebih sesuai untuk aplikasi mobile yang memanggil API tanpa bergantung pada cookie browser.
+
+App portofolio mobile ini memperoleh token lewat endpoint API, lalu mengirim `Authorization: Token <token>` saat membuat data atau logout. `SessionAuthentication` tetap dapat diaktifkan di backend untuk kebutuhan akses berbasis sesi, misalnya halaman/admin Django atau klien web. Kedua mekanisme dapat tersedia bersamaan sehingga klien menggunakan mekanisme yang sesuai dengan cara autentikasinya.
+
+## 4. Jelaskan peran job `build` (`very_good_workflows`) dan `build_apk` dalam pipeline `.github/workflows/main.yaml` milikmu (termasuk pemeriksaan apa saja yang dijalankan `very_good_workflows` di balik layar). Mengapa berkas `*.g.dart` dimasukkan ke `.gitignore` meskipun CI membutuhkannya untuk menganalisis dan membangun aplikasi?
+
+Job `build` memakai workflow Flutter dari `very_good_workflows`. Workflow ini memasang dependency, menjalankan perintah `setup` yang di proyek ini membuat berkas JSON hasil generate dengan `build_runner`, lalu memeriksa format (`dart format`), menganalisis kode (`flutter analyze`), dan menjalankan test beserta pengukuran coverage. Di konfigurasi ini, berkas `*.g.dart` dikecualikan dari hitungan coverage dan batas minimum coverage disetel ke 0. Job `build_apk` menunggu `build` berhasil, memasang Flutter dan dependency, membuat ulang berkas hasil generasi, membangun APK release, lalu mengunggah APK sebagai artifact.
+
+Berkas `*.g.dart` adalah hasil otomatis dari `json_serializable`, jadi tidak perlu disimpan sebagai sumber yang diedit manual dan dapat dibuat ulang dari model. Berkas itu dimasukkan ke `.gitignore` untuk menghindari perubahan generated code yang tidak perlu. CI tetap bisa menganalisis dan membangun aplikasi karena kedua job menjalankan `build_runner` sebelum langkah tersebut.
+
+### 📶 Progress Mingguan
+**Untuk Full *Commit History*, bisa lihat di branch tugas-9**
+- 28 November 2026:
+    1. Menambah model JSON dan integrasi API untuk proyek dan pengalaman
+    2. Menambahkan autentikasi token dan pipeline CI untuk build APK
+    3. Menambah isi README.md
+
+### 🤖 AI Disclosure
+
+#### AI Tools yang Digunakan
+
+- **Codex** : Untuk membantu dalam pengisian README.md
+    
+#### Keterbatasan AI
+AI hanya bisa berjalan dengan baik dan sesuai kemauan saya ketika saya memberikan referensi yang banyak. Yang mana dalam mencari referensi, tentunya kita harus memahami apa yg dimau kita secara detail, Oleh karena itu, saya juga perlu memahami secara mendalam mengenai tugas ini
 
 #### Perbaikan Manual
 Melakukan pengecekan pada hasil output AI dan juga memperbaiki bagian - bagian yang tidak kompatibel / tidak sesuai sehingga app aku dapat berjalan sesuai dengan ketentuan.
