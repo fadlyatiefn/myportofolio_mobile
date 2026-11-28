@@ -62,7 +62,7 @@ class ItemCard extends StatelessWidget {
                 builder: (context) => const ExperienceListScreen(),
               ),
             );
-            } else {
+          } else {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
