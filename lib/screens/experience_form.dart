@@ -2,8 +2,6 @@ import 'package:material_ui/material_ui.dart';
 import 'package:date_field/date_field.dart';
 import 'package:material_ui/material_ui.dart' as date_material;
 
-// TODO: Impor drawer yang sudah dibuat sebelumnya
-
 class ExperienceFormPage extends StatefulWidget {
   const ExperienceFormPage({super.key});
 
@@ -39,7 +37,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
-      // TODO: Tambahkan drawer yang sudah dibuat di sini
+
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

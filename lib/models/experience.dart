@@ -29,6 +29,7 @@ class Experience {
   @JsonKey(includeToJson: false)
   final DateTime? startedAt;
   final DateTime? endedAt;
+  bool get isOngoing => endedAt == null;
   final String? thumbnail;
   @JsonKey(includeToJson: false)
   final int starCount;

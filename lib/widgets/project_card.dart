@@ -1,4 +1,5 @@
 import 'package:myportofolio_mobile/screens/experience_form.dart';
+import 'package:myportofolio_mobile/screens/experience_list_screen.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_list_screen.dart';
@@ -54,7 +55,14 @@ class ItemCard extends StatelessWidget {
                 builder: (context) => const ProjectListScreen(),
               ),
             );
-          } else {
+          } else if (item.name == 'Lihat Experience') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ExperienceListScreen(),
+              ),
+            );
+            } else {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()
               ..showSnackBar(
